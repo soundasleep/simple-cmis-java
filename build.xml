@@ -14,7 +14,7 @@
 	<property name="build.tests" value="build/tests/" />
 	<property name="build.jar" value="build/jar/" />
 	<property name="reports.tests" value="build/reports/" />
-	<property name="jar.name" value="simple-cmis.jar" />
+	<property name="jar.name" value="simple-cmis-java.jar" />
 
 	<!-- default deploy destination -->
 	<property name="DEPLOY_JAR" value="deploy/" />
