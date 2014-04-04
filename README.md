@@ -31,4 +31,10 @@ doc.replaceContents("Goodbye, world!".getBytes("UTF-8"), "text/plain");
 
 You can build using the provided Ant script, or use the recent JAR in `/deploy`.
 
-You can also add this as a SVN external: `https://github.com/soundasleep/simple-cmis-java/trunk/deploy`
+You can also add this (and its dependencies) as SVN externals:
+
+```
+simple-cmis-java https://github.com/soundasleep/simple-cmis-java/trunk/deploy
+opencmis https://github.com/soundasleep/simple-cmis-java/trunk/lib/opencmis
+alfresco-opencmis-extension-0.4 https://github.com/soundasleep/simple-cmis-java/trunk/lib/alfresco-opencmis-extension-0.4
+```
