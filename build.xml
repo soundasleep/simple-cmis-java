@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<project default="deploy-test-jar">
+	
+	<property environment="env" />
+	
+	<!-- the source code for tests -->
+	<property name="src.tests" value="src/" />
+	
+	<!-- the location of required JARs for building and testing -->
+	<property name="lib.path" value="lib/" />
+	
+	<!-- the place to copy the built Drupal application to -->
+	<property name="build.classes" value="build/classes/" />
+	<property name="build.tests" value="build/tests/" />
+	<property name="build.jar" value="build/jar/" />
+	<property name="reports.tests" value="build/reports/" />
+	<property name="jar.name" value="simple-cmis.jar" />
+
+	<!-- default deploy destination -->
+	<property name="DEPLOY_JAR" value="deploy/" />
+	
+	<!-- ============= -->
+	<target name="compile-test"
+			depends="clean"
+			description="Compile the tests into a single JAR.">
+		<mkdir dir="${build.tests}" />
+		
+		<javac srcdir="${src.tests}" destdir="${build.tests}" debug="on" 
+				includeAntRuntime="no">
+			<classpath>
+				<fileset dir="${lib.path}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- ============= -->
+	<target name="compile-classes"
+			depends="clean"
+			description="Compile the classes into a single JAR.">
+		<mkdir dir="${build.classes}" />
+		
+		<javac srcdir="${src.tests}" destdir="${build.classes}" debug="on"
+				excludes="**/tests/**"
+				includeAntRuntime="no">
+			<classpath>
+				<fileset dir="${lib.path}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+
+		<mkdir dir="${build.jar}" />
+
+		<jar destfile="${build.jar}/${jar.name}">
+			<fileset dir="${build.classes}" />
+		</jar>
+	</target>
+
+	<!-- ============= -->
+	<target name="set-proxy" 
+			depends="test-env"
+			if="PROXY_ENABLED"
+			description="Optionally set the proxy for the xml-lint target">
+		<fail unless="PROXY_HOST" message="PROXY_HOST property not set." />
+		<fail unless="PROXY_PORT" message="PROXY_PORT property not set." />
+		<!-- proxyuser and proxyport are optional to setproxy, and can be blank -->
+		<property name="PROXY_USER" value="" />
+		<property name="PROXY_PASSWORD" value="" />
+		
+		<setproxy proxyhost="${PROXY_HOST}" proxyport="${PROXY_PORT}"
+			proxyuser="${PROXY_USER}" proxypassword="${PROXY_PASSWORD}" />
+		<echo message="Set proxy to ${PROXY_HOST}:${PROXY_PORT}" />
+	</target>
+
+	<!-- ============= -->
+	<target name="test"
+			depends="compile-test,set-proxy"
+			description="Execute all of the tests defined in this project.">
+		
+		<!-- create the folder for JUnit reports -->
+		<mkdir dir="${reports.tests}" />
+		
+		<!-- default property values -->
+		<property name="PROXY_HOST" value="" />
+		<property name="PROXY_PORT" value="" />
+		<property name="PROXY_USER" value="" />
+		<property name="PROXY_PASSWORD" value="" />
+		<property name="PROXY_ENABLED" value="" />
+		
+		<!-- test all test cases in src.tests -->
+		<junit fork="no" printsummary="yes" showoutput="yes" haltonerror="yes">
+			<sysproperty key="basedir" value="${basedir}"/>
+			<sysproperty key="http.proxyHost" value="${PROXY_HOST}"/>
+			<sysproperty key="http.proxyPort" value="${PROXY_PORT}"/>
+			<sysproperty key="http.proxyUser" value="${PROXY_USER}"/>
+			<sysproperty key="http.proxyPassword" value="${PROXY_PASSWORD}"/>
+			<sysproperty key="proxySet" value="${PROXY_ENABLED}"/>
+			
+			<classpath>
+				<pathelement location="${src.tests}" /><!-- for logback.xml -->
+				<pathelement location="${build.tests}" /><!-- compiled tests -->
+				<fileset dir="${lib.path}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+			
+			<formatter type="xml" />
+
+			<batchtest fork="yes" todir="${reports.tests}">
+				<fileset dir="${src.tests}">
+					<include name="**/tests/*.java" />
+					<exclude name="**/*Helper.java" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+		
+	<!-- ============= -->
+	<target name="deploy-test-jar"
+			depends="test-env,test,compile-classes"
+			description="Deploy the test JARs into ${DEPLOY_JAR}.">
+		
+		<fail unless="DEPLOY_JAR" message="DEPLOY_JAR property not set." />
+		<mkdir dir="${DEPLOY_JAR}" />
+		
+		<copy todir="${DEPLOY_JAR}">
+			<fileset dir="${build.jar}" />
+		</copy>
+	</target>
+	
+	<!-- ============= -->
+	<target name="clean"
+			description="Clean up the build">
+		<delete dir="${build.classes}" />
+		<delete dir="${build.tests}" />
+		<delete dir="${build.jar}" />
+		<!-- clean should not delete dir DEPLOY_JAR, because this dir may be under SVN -->
+	</target>
+
+	<!-- ============= -->
+	<target name="test-env" 
+			description="Test that runtime properties are set correctly.">
+		<!-- get host names -->
+		<hostinfo prefix="host" />
+		
+		<!-- load additional properties, if present; top files have precedence -->
+		<property file="build.${user.name}.properties" />
+		<property file="build.${env.COMPUTERNAME}.properties" />
+		<property file="build.${env.HOST}.properties" />
+		<property file="build.${env.HOSTNAME}.properties" />
+		<property file="build.${host.NAME}.properties" />
+		<property file="build.${host.DOMAIN}.properties" />
+		<property file="build.default.properties" />
+		
+		<echoproperties />
+		
+		<!-- set defaults -->
+		<!-- property name="DATABASE_HOST" value="localhost" / -->
+	</target>
+	
+</project>

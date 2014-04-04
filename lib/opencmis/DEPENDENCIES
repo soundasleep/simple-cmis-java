@@ -1,0 +1,63 @@
+// ------------------------------------------------------------------
+// Transitive dependencies of this project determined from the
+// maven pom organized by organization.
+// ------------------------------------------------------------------
+
+OpenCMIS Client Implementation
+
+
+From: 'BEA Systems'
+  - Streaming API for XML (http://stax.codehaus.org) javax.xml.stream:stax-api:jar:1.0-2:compile
+    License: Dual license consisting of the CDDL v1.0 and GPL v2  (https://glassfish.dev.java.net/public/CDDL+GPL.html)
+
+From: 'Codehaus' (http://www.codehaus.org/)
+  - Woodstox (http://woodstox.codehaus.org) org.codehaus.woodstox:wstx-asl:jar:3.2.3
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'Java.net' (http://dev.java.net)
+  - StAX-Ex Project (https://stax-ex.dev.java.net/stax-ex) org.jvnet.staxex:stax-ex:jar:1.2:compile
+    License: Common Development And Distribution License (CDDL) Version 1.0  (http://www.sun.com/cddl/cddl.html)
+
+From: 'OSGi Alliance' (http://www.osgi.org/)
+  - OSGi R4 Core Bundle (http://felix.apache.org/org.osgi.core/) org.apache.felix:org.osgi.core:bundle:1.0.0
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'QOS.ch' (http://www.qos.ch)
+  - SLF4J API Module (http://www.slf4j.org) org.slf4j:slf4j-api:jar:1.6.6
+    License: MIT License  (http://www.opensource.org/licenses/mit-license.php)
+
+From: 'Sun Microsystems, Inc' (http://www.sun.com/)
+  - XML Resolver library  com.sun.org.apache.xml.internal:resolver:jar:20050927:compile
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Sun JAXB Reference Implementation Runtime (https://jaxb.dev.java.net/) com.sun.xml.bind:jaxb-impl:jar:2.1.11:compile
+    License: Dual license consisting of the CDDL v1.0 and GPL v2  (https://glassfish.dev.java.net/public/CDDL+GPL.html)
+  - Sun SAAJ Standard Implementation (https://saaj.dev.java.net/) com.sun.xml.messaging.saaj:saaj-impl:jar:1.3.3:compile
+    License: Dual license consisting of the CDDL v1.0 and GPL v2  (https://glassfish.dev.java.net/public/CDDL+GPL.html)
+  - XML Stream Buffer Project (https://xmlstreambuffer.dev.java.net/) com.sun.xml.stream.buffer:streambuffer:jar:0.9:compile
+    License: Dual license consisting of the CDDL v1.0 and GPL v2  (https://glassfish.dev.java.net/public/CDDL+GPL.html)
+  - JAX-WS (JSR-224) Reference Implementation (https://jax-ws.dev.java.net//) com.sun.xml.ws:jaxws-rt:jar:2.1.7
+    License: Dual license consisting of the CDDL v1.0 and GPL v2  (https://glassfish.dev.java.net/public/CDDL+GPL.html)
+  - JavaBeans(TM) Activation Framework Specification (http://www.oracle.com/technetwork/java/jaf11-139815.html) javax.activation:activation:jar:1.1:compile
+    License: Common Development And Distribution License (CDDL) Version 1.0  (http://www.sun.com/cddl/cddl.html)
+  - Java Architecture for XML Binding (https://jaxb.dev.java.net/) javax.xml.bind:jaxb-api:jar:2.1:compile
+    License: Common Development And Distribution License (CDDL) Version 1.0  (http://www.sun.com/cddl/cddl.html)
+  - SAAJ API (https://saaj.dev.java.net/) javax.xml.soap:saaj-api:jar:1.3:compile
+    License: Dual license consisting of the CDDL v1.0 and GPL v2  (https://glassfish.dev.java.net/public/CDDL+GPL.html)
+  - JAX-WS (JSR-224) API (https://jax-ws.dev.java.net/) javax.xml.ws:jaxws-api:jar:2.1:compile
+    License: Dual license consisting of the CDDL v1.0 and GPL v2  (https://glassfish.dev.java.net/public/CDDL+GPL.html)
+  - mimepull (https://mimepull.dev.java.net) org.jvnet:mimepull:jar:1.3:compile
+    License: COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0  (http://www.opensource.org/licenses/cddl1.php)    License: GPLv2 with classpath exception  (http://www.gnu.org/software/classpath/license.html)
+
+From: 'The Apache Software Foundation' (http://www.apache.org/)
+  - OpenCMIS Client API (http://chemistry.apache.org/java/chemistry-opencmis-client/chemistry-opencmis-client-api/) org.apache.chemistry.opencmis:chemistry-opencmis-client-api:jar:0.8.0
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - OpenCMIS Client Bindings Implementation (http://chemistry.apache.org/java/chemistry-opencmis-client/chemistry-opencmis-client-bindings/) org.apache.chemistry.opencmis:chemistry-opencmis-client-bindings:jar:0.8.0
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - OpenCMIS Commons API (http://chemistry.apache.org/java/chemistry-opencmis-commons/chemistry-opencmis-commons-api/) org.apache.chemistry.opencmis:chemistry-opencmis-commons-api:jar:0.8.0
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - OpenCMIS Commons Implementation (http://chemistry.apache.org/java/chemistry-opencmis-commons/chemistry-opencmis-commons-impl/) org.apache.chemistry.opencmis:chemistry-opencmis-commons-impl:jar:0.8.0
+    License: Apache 2  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+
+
+

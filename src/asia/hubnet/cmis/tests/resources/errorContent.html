@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <title>Web Script Status 500 - Internal Error</title>
+      <link rel="stylesheet" href="/alfresco/css/webscripts.css" type="text/css" />
+   </head>
+   <body>
+      <div>
+         <table>
+            <tr>
+               <td><img src="/alfresco/images/logo/AlfrescoLogo32.png" alt="Alfresco" /></td>
+               <td><span class="title">Web Script Status 500 - Internal Error</span></td>
+            </tr>
+         </table>
+         <br/>
+         <table>
+            <tr><td>The Web Script <a href="%2Falfresco%2Fservice%2Fcmis%2Fs%2Fworkspace%3ASpacesStore%2Fi%2F07330309-fada-4ea2-91b3-df366bf5b579%2Fchildren%3FversioningState%3Dmajor">/alfresco/service/cmis/s/workspace:SpacesStore/i/07330309-fada-4ea2-91b3-df366bf5b579/children</a> has responded with a status of 500 - Internal Error.</td></tr>
+         </table>
+         <br/>
+         <table>
+            <tr><td><b>500 Description:</b></td><td> An error inside the HTTP server which prevented it from fulfilling the request.</td></tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr><td><b>Message:</b></td><td>03230001 Wrapped Exception (with status template): 03230033 Failed to execute script 'classpath*:alfresco/templates/webscripts/org/alfresco/cmis/children.post.atom.js': 03230032 Access Denied.  You do not have the appropriate permissions to perform this operation.</td></tr>
+            <tr><td></td><td>&nbsp;</td></tr>
+   <tr><td><b>Exception:</b></td><td>net.sf.acegisecurity.AccessDeniedException - Access is denied.</td></tr>
+   <tr><td></td><td>&nbsp;</td></tr>
+         <tr><td></td><td>net.sf.acegisecurity.vote.AffirmativeBased.decide(AffirmativeBased.java:86)</td></tr>
+         <tr><td></td><td>net.sf.acegisecurity.intercept.AbstractSecurityInterceptor.beforeInvocation(AbstractSecurityInterceptor.java:398)</td></tr>
+         <tr><td></td><td>net.sf.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor.invoke(MethodSecurityInterceptor.java:77)</td></tr>
+         <tr><td></td><td>org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.security.permissions.impl.ExceptionTranslatorMethodInterceptor.invoke(ExceptionTranslatorMethodInterceptor.java:46)</td></tr>
+         <tr><td></td><td>org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.audit.AuditMethodInterceptor.invoke(AuditMethodInterceptor.java:159)</td></tr>
+         <tr><td></td><td>org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.model.filefolder.FilenameFilteringInterceptor.invoke(FilenameFilteringInterceptor.java:271)</td></tr>
+         <tr><td></td><td>org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)</td></tr>
+         <tr><td></td><td>org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:110)</td></tr>
+         <tr><td></td><td>org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)</td></tr>
+         <tr><td></td><td>org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:202)</td></tr>
+         <tr><td></td><td>com.sun.proxy.$Proxy75.create(Unknown Source)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.jscript.ScriptNode.createFile(ScriptNode.java:1706)</td></tr>
+         <tr><td></td><td>sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</td></tr>
+         <tr><td></td><td>sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)</td></tr>
+         <tr><td></td><td>sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)</td></tr>
+         <tr><td></td><td>java.lang.reflect.Method.invoke(Unknown Source)</td></tr>
+         <tr><td></td><td>org.mozilla.javascript.MemberBox.invoke(MemberBox.java:155)</td></tr>
+         <tr><td></td><td>org.mozilla.javascript.NativeJavaMethod.call(NativeJavaMethod.java:243)</td></tr>
+         <tr><td></td><td>org.mozilla.javascript.optimizer.OptRuntime.call2(OptRuntime.java:76)</td></tr>
+         <tr><td></td><td>org.mozilla.javascript.gen.c4._c5(file:/C:/hubnet/apache-tomcat-7.0.23/webapps/alfresco/WEB-INF/classes/alfresco/templates/webscripts/org/alfresco/cmis/children.post.atom.js:133)</td></tr>
+         <tr><td></td><td>org.mozilla.javascript.gen.c4.call(file:/C:/hubnet/apache-tomcat-7.0.23/webapps/alfresco/WEB-INF/classes/alfresco/templates/webscripts/org/alfresco/cmis/children.post.atom.js)</td></tr>
+         <tr><td></td><td>org.mozilla.javascript.optimizer.OptRuntime.callName(OptRuntime.java:97)</td></tr>
+         <tr><td></td><td>org.mozilla.javascript.gen.c4._c0(file:/C:/hubnet/apache-tomcat-7.0.23/webapps/alfresco/WEB-INF/classes/alfresco/templates/webscripts/org/alfresco/cmis/children.post.atom.js:559)</td></tr>
+         <tr><td></td><td>org.mozilla.javascript.gen.c4.call(file:/C:/hubnet/apache-tomcat-7.0.23/webapps/alfresco/WEB-INF/classes/alfresco/templates/webscripts/org/alfresco/cmis/children.post.atom.js)</td></tr>
+         <tr><td></td><td>org.mozilla.javascript.ContextFactory.doTopCall(ContextFactory.java:393)</td></tr>
+         <tr><td></td><td>org.mozilla.javascript.ScriptRuntime.doTopCall(ScriptRuntime.java:2834)</td></tr>
+         <tr><td></td><td>org.mozilla.javascript.gen.c4.call(file:/C:/hubnet/apache-tomcat-7.0.23/webapps/alfresco/WEB-INF/classes/alfresco/templates/webscripts/org/alfresco/cmis/children.post.atom.js)</td></tr>
+         <tr><td></td><td>org.mozilla.javascript.gen.c4.exec(file:/C:/hubnet/apache-tomcat-7.0.23/webapps/alfresco/WEB-INF/classes/alfresco/templates/webscripts/org/alfresco/cmis/children.post.atom.js)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.jscript.RhinoScriptProcessor.executeScriptImpl(RhinoScriptProcessor.java:492)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.jscript.RhinoScriptProcessor.execute(RhinoScriptProcessor.java:198)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.processor.ScriptServiceImpl.execute(ScriptServiceImpl.java:212)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.processor.ScriptServiceImpl.executeScript(ScriptServiceImpl.java:174)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.web.scripts.RepositoryScriptProcessor.executeScript(RepositoryScriptProcessor.java:102)</td></tr>
+         <tr><td></td><td>org.springframework.extensions.webscripts.AbstractWebScript.executeScript(AbstractWebScript.java:1288)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.cmis.rest.CMISWebScript.executeScript(CMISWebScript.java:46)</td></tr>
+         <tr><td></td><td>org.springframework.extensions.webscripts.DeclarativeWebScript.execute(DeclarativeWebScript.java:86)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.web.scripts.RepositoryContainer$2.execute(RepositoryContainer.java:417)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.transaction.RetryingTransactionHelper.doInTransaction(RetryingTransactionHelper.java:388)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.web.scripts.RepositoryContainer.transactionedExecute(RepositoryContainer.java:479)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.web.scripts.RepositoryContainer.transactionedExecuteAs(RepositoryContainer.java:517)</td></tr>
+         <tr><td></td><td>org.alfresco.repo.web.scripts.RepositoryContainer.executeScript(RepositoryContainer.java:333)</td></tr>
+         <tr><td></td><td>org.springframework.extensions.webscripts.AbstractRuntime.executeScript(AbstractRuntime.java:377)</td></tr>
+         <tr><td></td><td>org.springframework.extensions.webscripts.AbstractRuntime.executeScript(AbstractRuntime.java:209)</td></tr>
+         <tr><td></td><td>org.springframework.extensions.webscripts.servlet.WebScriptServlet.service(WebScriptServlet.java:118)</td></tr>
+         <tr><td></td><td>javax.servlet.http.HttpServlet.service(HttpServlet.java:722)</td></tr>
+         <tr><td></td><td>org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)</td></tr>
+         <tr><td></td><td>org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)</td></tr>
+         <tr><td></td><td>org.alfresco.web.app.servlet.GlobalLocalizationFilter.doFilter(GlobalLocalizationFilter.java:61)</td></tr>
+         <tr><td></td><td>org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)</td></tr>
+         <tr><td></td><td>org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)</td></tr>
+         <tr><td></td><td>net.bull.javamelody.MonitoringFilter.doFilter(MonitoringFilter.java:206)</td></tr>
+         <tr><td></td><td>net.bull.javamelody.MonitoringFilter.doFilter(MonitoringFilter.java:179)</td></tr>
+         <tr><td></td><td>org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)</td></tr>
+         <tr><td></td><td>org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)</td></tr>
+         <tr><td></td><td>org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:224)</td></tr>
+         <tr><td></td><td>org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:169)</td></tr>
+         <tr><td></td><td>org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)</td></tr>
+         <tr><td></td><td>org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:168)</td></tr>
+         <tr><td></td><td>org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:98)</td></tr>
+         <tr><td></td><td>org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:928)</td></tr>
+         <tr><td></td><td>org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)</td></tr>
+         <tr><td></td><td>org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)</td></tr>
+         <tr><td></td><td>org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:987)</td></tr>
+         <tr><td></td><td>org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:539)</td></tr>
+         <tr><td></td><td>org.apache.tomcat.util.net.AprEndpoint$SocketProcessor.run(AprEndpoint.java:1815)</td></tr>
+         <tr><td></td><td>java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)</td></tr>
+         <tr><td></td><td>java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)</td></tr>
+         <tr><td></td><td>java.lang.Thread.run(Unknown Source)</td></tr>
+   <tr><td></td><td>&nbsp;</td></tr>
+   <tr><td><b>Exception:</b></td><td>org.alfresco.repo.security.permissions.AccessDeniedException - 03230032 Access Denied.  You do not have the appropriate permissions to perform this operation.</td></tr>
+   <tr><td></td><td>&nbsp;</td></tr>
+      <tr><td></td><td>org.alfresco.repo.security.permissions.impl.ExceptionTranslatorMethodInterceptor.invoke(ExceptionTranslatorMethodInterceptor.java:50)</td></tr>
+   <tr><td></td><td>&nbsp;</td></tr>
+   <tr><td><b>Exception:</b></td><td>org.alfresco.scripts.ScriptException - 03230033 Failed to execute script 'classpath*:alfresco/templates/webscripts/org/alfresco/cmis/children.post.atom.js': 03230032 Access Denied.  You do not have the appropriate permissions to perform this operation.</td></tr>
+   <tr><td></td><td>&nbsp;</td></tr>
+      <tr><td></td><td>org.alfresco.repo.jscript.RhinoScriptProcessor.execute(RhinoScriptProcessor.java:202)</td></tr>
+   <tr><td></td><td>&nbsp;</td></tr>
+   <tr><td><b>Exception:</b></td><td>org.springframework.extensions.webscripts.WebScriptException - 03230001 Wrapped Exception (with status template): 03230033 Failed to execute script 'classpath*:alfresco/templates/webscripts/org/alfresco/cmis/children.post.atom.js': 03230032 Access Denied.  You do not have the appropriate permissions to perform this operation.</td></tr>
+   <tr><td></td><td>&nbsp;</td></tr>
+      <tr><td></td><td>org.springframework.extensions.webscripts.AbstractWebScript.createStatusException(AbstractWebScript.java:1050)</td></tr>
+   <tr><td></td><td>&nbsp;</td></tr>
+            <tr><td><b>Server</b>:</td><td>Enterprise v4.1.3 (97) schema 5,118</td></tr>
+            <tr><td><b>Time</b>:</td><td>23/04/2013 12:54:43 PM</td></tr>
+            <tr><td></td><td>&nbsp;</td></tr>
+            <tr><td><b>Diagnostics</b>:</td><td><a href="/alfresco/service/script/org/alfresco/cmis/children.post">Inspect Web Script (org/alfresco/cmis/children.post)</a></td></tr>
+         </table>
+      </div>
+   </body>
+</html>
