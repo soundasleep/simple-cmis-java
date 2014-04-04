@@ -15,6 +15,7 @@ import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.commons.PropertyIds;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
+import org.apache.chemistry.opencmis.commons.exceptions.CmisRuntimeException;
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 
 
@@ -51,6 +52,9 @@ public class CMISDocument extends CMISObject {
 		try {
 			stream = new ByteArrayInputStream(content);
 			replaceContents(stream, content.length, contentType);
+		} catch (CmisRuntimeException e) {
+			AlfrescoCMISRuntimeException.checkCmisException(e);
+			throw e;		// or throw as normal
 		} finally {
 			if (stream != null) stream.close();
 		}
@@ -87,13 +91,20 @@ public class CMISDocument extends CMISObject {
 	 */
 	public void replaceContents(InputStream stream, long length,
 			String contentType) throws CMISInvalidContentTypeException {
+
+		try {
+			
+			if (contentType == null)
+				throw new CMISInvalidContentTypeException("Content-Type cannot be null");
+			
+			Document doc = (Document) getCmisObject();
+			ContentStream contentStream = new ContentStreamImpl(getName(), BigInteger.valueOf(length), contentType, stream);
+			doc.setContentStream(contentStream, true);
 		
-		if (contentType == null)
-			throw new CMISInvalidContentTypeException("Content-Type cannot be null");
-		
-		Document doc = (Document) getCmisObject();
-		ContentStream contentStream = new ContentStreamImpl(getName(), BigInteger.valueOf(length), contentType, stream);
-		doc.setContentStream(contentStream, true);
+		} catch (CmisRuntimeException e) {
+			AlfrescoCMISRuntimeException.checkCmisException(e);
+			throw e;		// or throw as normal
+		}
 		
 	}
 
@@ -108,10 +119,18 @@ public class CMISDocument extends CMISObject {
 	 * @throws CMISObjectNotFoundException if the moved file could not be found
 	 */
 	public CMISDocument move(CMISFolder dest) throws CMISObjectNotFoundException, CMISObjectNotDocumentException {
-		Document doc = (Document) getCmisObject();
-		doc.move(getParentFolder().getFolder(), dest.getFolder());
+		try {
+			
+			Document doc = (Document) getCmisObject();
+			doc.move(getParentFolder().getFolder(), dest.getFolder());
+			
+			return dest.getDocument(doc.getName());
+			
+		} catch (CmisRuntimeException e) {
+			AlfrescoCMISRuntimeException.checkCmisException(e);
+			throw e;		// or throw as normal
+		}
 		
-		return dest.getDocument(doc.getName());
 	}
 
 	/**
@@ -124,11 +143,19 @@ public class CMISDocument extends CMISObject {
 	 * @throws CMISObjectNotFoundException if the renamed file could not be found
 	 */
 	public CMISDocument rename(String newName) throws CMISObjectNotFoundException, CMISObjectNotDocumentException {
-		Map<String, String> newProps = new HashMap<String, String>();
-		newProps.put(PropertyIds.NAME, newName);
-		getCmisObject().updateProperties(newProps, true);
-		
-		return getParentFolder().getDocument(newName);
+		try {
+			
+			Map<String, String> newProps = new HashMap<String, String>();
+			newProps.put(PropertyIds.NAME, newName);
+			getCmisObject().updateProperties(newProps, true);
+			
+			return getParentFolder().getDocument(newName);
+			
+		} catch (CmisRuntimeException e) {
+			AlfrescoCMISRuntimeException.checkCmisException(e);
+			throw e;		// or throw as normal
+		}
+	
 	}
 
 }

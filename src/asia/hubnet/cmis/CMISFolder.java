@@ -26,6 +26,7 @@ import org.apache.chemistry.opencmis.commons.PropertyIds;
 import org.apache.chemistry.opencmis.commons.data.ContentStream;
 import org.apache.chemistry.opencmis.commons.enums.VersioningState;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
+import org.apache.chemistry.opencmis.commons.exceptions.CmisRuntimeException;
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 
 /**
@@ -186,27 +187,35 @@ public class CMISFolder {
 	public CMISDocument upload(String name, InputStream stream, long length, String contentType,
 			String description) throws IOException, CMISInvalidContentTypeException {
 
-		if (contentType == null)
-			throw new CMISInvalidContentTypeException("Content-Type cannot be null");
-
-		Map<String, Object> properties = new HashMap<String, Object>();
-		if (description == null) {
-			// TODO should the Object type ID be a parameter too?
-			properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
-			properties.put(PropertyIds.NAME, name);
-		} else {
-			properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document,P:cm:titled");
-			properties.put(PropertyIds.NAME, name);
-			properties.put("cm:description", description); // P:cm:titled adds cm:description field
-		}
-
-		// content
-		ContentStream contentStream = new ContentStreamImpl(name, BigInteger.valueOf(length), contentType, stream);
-
-		// create a major version
-		Document newDoc = folder.createDocument(properties, contentStream, VersioningState.MAJOR);
+		try {
 		
-		return new CMISDocument(this, newDoc);
+			if (contentType == null)
+				throw new CMISInvalidContentTypeException("Content-Type cannot be null");
+	
+			Map<String, Object> properties = new HashMap<String, Object>();
+			if (description == null) {
+				// TODO should the Object type ID be a parameter too?
+				properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
+				properties.put(PropertyIds.NAME, name);
+			} else {
+				properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document,P:cm:titled");
+				properties.put(PropertyIds.NAME, name);
+				properties.put("cm:description", description); // P:cm:titled adds cm:description field
+			}
+	
+			// content
+			ContentStream contentStream = new ContentStreamImpl(name, BigInteger.valueOf(length), contentType, stream);
+	
+			// create a major version
+			Document newDoc = folder.createDocument(properties, contentStream, VersioningState.MAJOR);
+			
+			return new CMISDocument(this, newDoc);
+			
+		} catch (CmisRuntimeException e) {
+			AlfrescoCMISRuntimeException.checkCmisException(e);
+			throw e;		// or throw as normal
+		}
+		
 	}
 	/**
 	 * Create a new {@link CMISDocument} with the given name, content, content type
@@ -375,12 +384,19 @@ public class CMISFolder {
 	 */
 	public CMISFolder createSubfolder(String name) {
 		
-		Map<String, String> props = new HashMap<String, String>();
-		props.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
-		props.put(PropertyIds.NAME, name);
-		Folder newFolder = folder.createFolder(props);
-		
-		return new CMISFolder(cmis, newFolder);
+		try {
+			
+			Map<String, String> props = new HashMap<String, String>();
+			props.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
+			props.put(PropertyIds.NAME, name);
+			Folder newFolder = folder.createFolder(props);
+			
+			return new CMISFolder(cmis, newFolder);
+			
+		} catch (CmisRuntimeException e) {
+			AlfrescoCMISRuntimeException.checkCmisException(e);
+			throw e;		// or throw as normal
+		}
 
 	}
 

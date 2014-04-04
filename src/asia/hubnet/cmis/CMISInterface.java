@@ -14,6 +14,7 @@ import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
 import org.apache.chemistry.opencmis.commons.SessionParameter;
 import org.apache.chemistry.opencmis.commons.enums.BindingType;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisObjectNotFoundException;
+import org.apache.chemistry.opencmis.commons.exceptions.CmisRuntimeException;
 
 
 /**
@@ -42,6 +43,9 @@ public class CMISInterface {
 			Folder folder = (Folder) object;
 	
 			return new CMISFolder(this, folder);
+		} catch (CmisRuntimeException e) {
+			AlfrescoCMISRuntimeException.checkCmisException(e);
+			throw e;		// or throw as normal
 		} catch (CmisObjectNotFoundException e) {
 			throw new CMISObjectNotFoundException(e);
 		}
@@ -55,6 +59,9 @@ public class CMISInterface {
 		try {
 			getFolderByPath(folderPath);
 			return true;
+		} catch (CmisRuntimeException e) {
+			AlfrescoCMISRuntimeException.checkCmisException(e);
+			throw e;		// or throw as normal
 		} catch (CMISObjectNotFoundException e) {
 			return false;
 		}
@@ -65,26 +72,34 @@ public class CMISInterface {
 	 * @see #resetSession()
 	 */
 	public void connectSession() {
-		if (session != null)
-			return;
-		
-		Map<String, String> parameter = new HashMap<String, String>();
+		try {
+			
+			if (session != null)
+				return;
+			
+			Map<String, String> parameter = new HashMap<String, String>();
+	
+			// Set the user credentials
+			parameter.put(SessionParameter.USER, config.getUser());
+			parameter.put(SessionParameter.PASSWORD, config.getPassword());
+	
+			// Specify the connection settings
+			parameter.put(SessionParameter.ATOMPUB_URL, config.getURL());
+			parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
+	
+			// Set the alfresco object factory
+			// used to add Aspect support to CMIS objects
+			parameter.put(SessionParameter.OBJECT_FACTORY_CLASS, "org.alfresco.cmis.client.impl.AlfrescoObjectFactoryImpl");
+			
+			// Create a session
+			SessionFactory factory = SessionFactoryImpl.newInstance();
+			session = factory.getRepositories(parameter).get(0).createSession();
 
-		// Set the user credentials
-		parameter.put(SessionParameter.USER, config.getUser());
-		parameter.put(SessionParameter.PASSWORD, config.getPassword());
-
-		// Specify the connection settings
-		parameter.put(SessionParameter.ATOMPUB_URL, config.getURL());
-		parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
-
-		// Set the alfresco object factory
-		// used to add Aspect support to CMIS objects
-		parameter.put(SessionParameter.OBJECT_FACTORY_CLASS, "org.alfresco.cmis.client.impl.AlfrescoObjectFactoryImpl");
-		
-		// Create a session
-		SessionFactory factory = SessionFactoryImpl.newInstance();
-		session = factory.getRepositories(parameter).get(0).createSession();
+		} catch (CmisRuntimeException e) {
+			AlfrescoCMISRuntimeException.checkCmisException(e);
+			throw e;		// or throw as normal
+		}
+			
 	}
 	
 	public void resetSession() {
@@ -121,6 +136,9 @@ public class CMISInterface {
 			Folder folder = (Folder) object;
 	
 			return new CMISFolder(this, folder);
+		} catch (CmisRuntimeException e) {
+			AlfrescoCMISRuntimeException.checkCmisException(e);
+			throw e;		// or throw as normal
 		} catch (CmisObjectNotFoundException e) {
 			throw new CMISObjectNotFoundException(e);
 		}

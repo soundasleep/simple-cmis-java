@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Property;
+import org.apache.chemistry.opencmis.commons.exceptions.CmisRuntimeException;
 
 /**
  * Wraps the Apache {@link CmisObject} into a simpler form.
@@ -90,10 +91,18 @@ public class CMISObject {
 	 * @param value
 	 */
 	public void setProperty(String propertyId, Object value) {
-		Map<String, Object> update = new HashMap<String, Object>();
-		update.put(propertyId, value);
+
+		try {
+			Map<String, Object> update = new HashMap<String, Object>();
+			update.put(propertyId, value);
+			
+			updateProperties(update);
+			
+		} catch (CmisRuntimeException e) {
+			AlfrescoCMISRuntimeException.checkCmisException(e);
+			throw e;		// or throw as normal
+		}
 		
-		updateProperties(update);
 	}
 
 	/**
