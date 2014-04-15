@@ -3,10 +3,13 @@
  */
 package asia.hubnet.cmis;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
+import org.apache.chemistry.opencmis.client.api.Document;
 import org.apache.chemistry.opencmis.client.api.Folder;
 import org.apache.chemistry.opencmis.client.api.ItemIterable;
 import org.apache.chemistry.opencmis.client.api.QueryResult;
@@ -158,4 +161,31 @@ public class CMISInterface {
 		return session.query(query, false /* searchAllVersions */);
 	}
 	
+	/**
+	 * Perform a CMIS query and return each result as a {@link CMISDocument}.
+	 * Assumes each {@link Document} has at least one folder parent.
+	 * Based on http://chemistry.apache.org/java/examples/example-process-query-results.html
+	 * 
+	 * @param query e.g. 'SELECT * FROM cmis:document'.
+	 * @return 
+	 */
+	public Iterable<CMISDocument> queryDocuments(String query) {
+		List<CMISDocument> result = new ArrayList<CMISDocument>();
+		
+		for (QueryResult qr : query(query)) {
+			String objectId = qr.getPropertyValueById("cmis:objectId");
+			Document doc = (Document) session.getObject(session.createObjectId(objectId));
+			if (doc.getParents().isEmpty()) {
+				CMISDocument cmisDoc = new CMISDocument(null, doc);
+				result.add(cmisDoc);
+			} else {
+				CMISFolder folder = new CMISFolder(this, doc.getParents().get(0));
+				CMISDocument cmisDoc = new CMISDocument(folder, doc);
+				result.add(cmisDoc);
+			}
+		}
+		
+		return result;
+	}
+
 }
