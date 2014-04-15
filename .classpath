@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="lib" path="lib/opencmis/activation-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/opencmis/chemistry-opencmis-client-api-0.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/opencmis/chemistry-opencmis-client-api-0.8.0.jar" sourcepath="C:/hubnet/source/chemistry-opencmis-0.8.0"/>
 	<classpathentry kind="lib" path="lib/opencmis/chemistry-opencmis-client-bindings-0.8.0.jar"/>
 	<classpathentry kind="lib" path="lib/opencmis/chemistry-opencmis-client-impl-0.8.0.jar"/>
 	<classpathentry kind="lib" path="lib/opencmis/chemistry-opencmis-commons-api-0.8.0.jar"/>

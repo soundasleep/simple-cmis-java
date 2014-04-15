@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Folder;
+import org.apache.chemistry.opencmis.client.api.ItemIterable;
+import org.apache.chemistry.opencmis.client.api.QueryResult;
 import org.apache.chemistry.opencmis.client.api.Session;
 import org.apache.chemistry.opencmis.client.api.SessionFactory;
 import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
@@ -143,5 +145,17 @@ public class CMISInterface {
 			throw new CMISObjectNotFoundException(e);
 		}
 	}
-
+	
+	/**
+	 * Perform a raw CMIS query, e.g. 'SELECT * FROM cmis:document'.
+	 * 
+	 * @param query e.g. 'SELECT * FROM cmis:document'.
+	 * @return
+	 */
+	public ItemIterable<QueryResult> query(String query) {
+		connectSession();
+		
+		return session.query(query, false /* searchAllVersions */);
+	}
+	
 }
