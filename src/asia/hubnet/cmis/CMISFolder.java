@@ -99,12 +99,16 @@ public class CMISFolder {
 		};
 	}
 	
-	private final int DEFAULT_PAGE_SIZE = 16;
+	/**
+	 * The default page size for collection queries.
+	 */
+	public static final int DEFAULT_PAGE_SIZE = 16;
 	
 	/**
 	 * List all of the children of this folder.
-	 * Does not include subfolders: see {@link #getSubfolders()}.
+	 * May include subfolders: see {@link #getSubfolders()}.
 	 * 
+	 * @see #DEFAULT_PAGE_SIZE
 	 * @return
 	 */
 	public Iterable<CMISObject> getChildren() {
@@ -136,10 +140,43 @@ public class CMISFolder {
 	/**
 	 * List all of the direct subfolders of this folder.
 	 * 
+	 * @see #DEFAULT_PAGE_SIZE
 	 * @return
 	 */
 	public Iterable<CMISFolder> getSubfolders() {
 		return getSubfolders(DEFAULT_PAGE_SIZE);
+	}
+
+	/**
+	 * List all of the direct document children of this folder.
+	 *
+	 * @see #getChildren()
+	 * @return
+	 */
+	public Iterable<CMISDocument> getDocuments(int maxItemsPerPage) {
+		OperationContext operationContext = cmis.getSession().createOperationContext();
+		operationContext.setMaxItemsPerPage(maxItemsPerPage);
+		
+		List<Tree<FileableCmisObject>> children = folder.getDescendants(1 /* subfolder depth */, operationContext);
+		
+		List<CMISDocument> result = new ArrayList<CMISDocument>();
+		for (Tree<FileableCmisObject> t : children) {
+			if (t.getItem() instanceof Document) {
+				result.add(new CMISDocument(this, (Document) t.getItem()));
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * List all of the direct document children of this folder.
+	 * 
+	 * @see #DEFAULT_PAGE_SIZE
+	 * @return
+	 */
+	public Iterable<CMISDocument> getDocuments() {
+		return getDocuments(DEFAULT_PAGE_SIZE);
 	}
 
 	public String getName() {
