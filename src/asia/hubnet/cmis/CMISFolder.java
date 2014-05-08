@@ -331,9 +331,11 @@ public class CMISFolder {
 	/**
 	 * One way that seems to work for refreshing is to upload a new document,
 	 * and then delete it.
+	 * 
 	 * @throws IOException 
+	 * @throws CMISConstraintException 
 	 */
-	public void forceRefresh() throws IOException {
+	public void forceRefresh() throws IOException, CMISConstraintException {
 		String tempName = getTemporaryFile("forceRefresh");
 		CMISDocument doc;
 		try {

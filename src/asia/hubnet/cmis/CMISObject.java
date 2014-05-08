@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.CmisObject;
 import org.apache.chemistry.opencmis.client.api.Property;
+import org.apache.chemistry.opencmis.commons.exceptions.CmisConstraintException;
 import org.apache.chemistry.opencmis.commons.exceptions.CmisRuntimeException;
 
 /**
@@ -129,9 +130,16 @@ public class CMISObject {
 
 	/**
 	 * Delete this object and all of its versions.
+	 * If this object is a document, the whole version series is deleted.
+	 * 
+	 * @throws CMISConstraintException if the object could not be deleted due to a {@link CmisConstraintException}
 	 */
-	public void delete() {
-		getCmisObject().delete();
+	public void delete() throws CMISConstraintException {
+		try {
+			getCmisObject().delete();
+		} catch (CmisConstraintException e) {
+			throw new CMISConstraintException("Could not delete " + this + ": " + e.getMessage(), e);
+		}
 	}
 
 }
