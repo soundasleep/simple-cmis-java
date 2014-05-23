@@ -212,6 +212,11 @@ public class CMISFolder {
 	 * and description (for Alfresco repositories).
 	 * Does not close the given stream.
 	 * 
+	 * <p>
+	 * If the description is {@code null}, then the document only has the {@code cmis:document}
+	 * aspect. Otherwise, it will also have the {@code P:cm:titled} aspect, which is necessary
+	 * for the {@code cm:document} and {@code cm:title} attributes.
+	 * 
 	 * @param name filename
 	 * @param stream the stream to load data from; this stream is not closed
 	 * @param length the length of the stream
@@ -246,7 +251,11 @@ public class CMISFolder {
 			// create a major version
 			Document newDoc = folder.createDocument(properties, contentStream, VersioningState.MAJOR);
 			
-			return new CMISDocument(this, newDoc);
+			CMISDocument result = new CMISDocument(this, newDoc);
+			result.setWasUploaded(true);
+			result.setHasTitled(description != null);
+			
+			return result;
 			
 		} catch (CmisRuntimeException e) {
 			AlfrescoCMISRuntimeException.checkCmisException(e);

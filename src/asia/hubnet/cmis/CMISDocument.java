@@ -27,6 +27,9 @@ import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
  */
 public class CMISDocument extends CMISObject {
 
+	private boolean hasTitled = false;
+	private boolean wasUploaded = false;
+
 	public CMISDocument(CMISFolder folder, Document newDoc) {
 		super(folder, newDoc);
 	}
@@ -158,4 +161,46 @@ public class CMISDocument extends CMISObject {
 	
 	}
 
+	/**
+	 * If {@code true}, then this document was uploaded through {@link CMISFolder#upload(String, InputStream, long, String, String)}.
+	 * 
+	 * @param b
+	 */
+	public void setWasUploaded(boolean b) {
+		this.wasUploaded = b;
+	}
+	
+	/**
+	 * If {@code true}, then this document was uploaded with the 
+	 * {@code P:cm:titled} aspect.
+	 * 
+	 * @param b
+	 */
+	public void setHasTitled(boolean b) {
+		this.hasTitled = b;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * <p>
+	 * Also checks that if we are trying to set {@code cm:title}, that this aspect
+	 * was correctly applied at upload time. This aspect is set if the document
+	 * is uploaded with a {@code description} in {@link CMISFolder#upload(String, InputStream, long, String, String)}.
+	 * 
+	 * @throws CMISMissingAspectException 
+	 * @see asia.hubnet.cmis.CMISObject#setProperty(java.lang.String, java.lang.Object)
+	 */
+	@Override
+	public void setProperty(String propertyId, Object value) {
+		if ("cm:title".equals(propertyId)) {
+			if (wasUploaded && !hasTitled) {
+				throw new CMISMissingAspectException("Tried to set cm:title on an uploaded object without P:cm:titled aspect; upload the object with a description instead.");
+			}
+		}
+
+		// otherwise continue as normal
+		super.setProperty(propertyId, value);
+	}
+	
 }
